@@ -70,29 +70,28 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
 
 // HOLD товчны эвэнт листенер
 document.querySelector(".btn-hold").addEventListener("click", function () {
-  if(isNewGame){
+  if (isNewGame) {
+    //Уг тоглогчийн цуглуулсан ээлжний оноог глобаль оноон дээр нь нэмж өгнө.
+    scores[activePlayer] = scores[activePlayer] + roundScore;
 
-  //Уг тоглогчийн цуглуулсан ээлжний оноог глобаль оноон дээр нь нэмж өгнө.
-  scores[activePlayer] = scores[activePlayer] + roundScore;
+    document.getElementById("score-" + activePlayer).textContent =
+      scores[activePlayer];
 
-  document.getElementById("score-" + activePlayer).textContent =
-    scores[activePlayer];
+    if (scores[activePlayer] >= 100) {
+      // Togloomiig duussan tuuwt oruulna
+      isNewGame = false;
 
-  if (scores[activePlayer] >= 10) {
-    // Togloomiig duussan tuuwt oruulna
-    isNewGame = false;
-
-    document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
-    document
-      .querySelector(".palyer-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document
-      .querySelector(".palyer-" + activePlayer + "-panel")
-      .classList.remove("active");
+      document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+      document
+        .querySelector(".palyer-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".palyer-" + activePlayer + "-panel")
+        .classList.remove("active");
+    } else {
+      switchToNextPlayer();
+    }
   } else {
-    switchToNextPlayer();
-  }
-  }else{
     alert("Тоглоом дууссан байна. New Game товчыг дарна уу?");
   }
 });
